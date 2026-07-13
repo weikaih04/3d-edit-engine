@@ -1,0 +1,502 @@
+{
+ "E10/16f4953f226441a9aa7d5918966af3d5": {
+  "verdict": "marginal",
+  "note": "removal of the named part is not visually evident; scale step OK"
+ },
+ "E10/6f203c4a478d4d619257082baf81b511": {
+  "verdict": "marginal",
+  "note": "removed hand occluded in views; arm scale visible"
+ },
+ "E10/91ac40521d834b07aeb9864894447b73": {
+  "verdict": "fail",
+  "note": "turn1 and turn2 resolved to the same part name \u2014 instruction incoherent"
+ },
+ "E10/e02d940aac064063be4e5f96d50a7c47": {
+  "verdict": "marginal",
+  "note": "wing removal ambiguous from these views"
+ },
+ "E10/ee7668fd3b0042618aaed9653f7867a7": {
+  "verdict": "fail",
+  "note": "removal on single-piece scan leaves hollow damage; part ops need semantic-part assets"
+ },
+ "E10/ff6f7ccb7967414983fc8f24175cec46": {
+  "verdict": "marginal",
+  "note": "named part does not match what was removed; dome scale visible"
+ },
+ "E1b/0634f6c6aea34e52bf4a32e4dc336b04": {
+  "verdict": "marginal",
+  "note": "part name too generic (\"the part\"); steel change subtle"
+ },
+ "E1b/0d358271921543dcbcb9a6824c71c22c": {
+  "verdict": "fail",
+  "note": "mask landed on the base plate, not the named eye \u2014 mask/name mismatch"
+ },
+ "E1b/42025fba95764e10a3fe2a345ab220d8": {
+  "verdict": "pass",
+  "note": "stairs turned walnut, walls kept \u2014 clean local merge"
+ },
+ "E1b/5fd7aea1bb554878a6613b0541ae7387": {
+  "verdict": "marginal",
+  "note": "inner-bowl darkening partial across views"
+ },
+ "E1b/6323e46a47c04808838d36734bac0459": {
+  "verdict": "marginal",
+  "note": "rainbow applied locally on scan; part name generic"
+ },
+ "E1b/6a14661d40ce4be79c0854b89eb09c99": {
+  "verdict": "marginal",
+  "note": "clean local jaw edit, but part named \"backrest\" (wrong)"
+ },
+ "E1b/942135a5b06d40ffbbc45f54412a75da": {
+  "verdict": "pass",
+  "note": "base -> white marble while cannon stays wood/green; textbook E1b"
+ },
+ "E1b/b8a68678fd4540d48b386fa671ec29f8": {
+  "verdict": "marginal",
+  "note": "drum body changed rather than the named side handle"
+ },
+ "E1b/dc2c867f9b7e46028f3f827160bcb01c": {
+  "verdict": "marginal",
+  "note": "cap turned wood-brown; scan noise"
+ },
+ "E1b/ee2daff40a604c4eb4a22e5765686764": {
+  "verdict": "marginal",
+  "note": "marble-ish but one view renders dark (metallic-roughness lighting)"
+ },
+ "E1b/ee7668fd3b0042618aaed9653f7867a7": {
+  "verdict": "marginal",
+  "note": "red leather patches local but not clearly the hand"
+ },
+ "E2/0b08d1d29237__add_942135a5p14": {
+  "verdict": "pass",
+  "note": "donor stick attached on bird - visible add"
+ },
+ "E2/47c8d3bea36f__add_ae2a3af1p43": {
+  "verdict": "marginal",
+  "note": "hammer head attached on side rather than top"
+ },
+ "E2/49734024ff1f__add_e5642f6ap40": {
+  "verdict": "marginal",
+  "note": "armrest floats near hand; visible but placement crude"
+ },
+ "E2/5caeb10a9691__add_11dc7945p112": {
+  "verdict": "marginal",
+  "note": "added part barely visible at roof edge"
+ },
+ "E2/6a14661d40ce__add_cc9db73fp1": {
+  "verdict": "marginal",
+  "note": "tiny red donor at skull rear; semantics odd"
+ },
+ "E2/737a1fc04661__add_521ed677p13": {
+  "verdict": "fail",
+  "note": "added part nearly invisible"
+ },
+ "E2/942135a5b06d__add_802b1094p271": {
+  "verdict": "marginal",
+  "note": "subtle attachment on cannon"
+ },
+ "E2/e5642f6a1913__add_8537a66fp177": {
+  "verdict": "marginal",
+  "note": "small disc floats beside chair arm"
+ },
+ "E3/06f83e9f93964336961a32a86991b764__p99": {
+  "verdict": "fail",
+  "note": "belt still present - removal invisible"
+ },
+ "E3/081371cc821749e3b190dbe035a4a480__p1": {
+  "verdict": "fail",
+  "note": "part=most of the cane (face-share vs area mismatch); fragment left"
+ },
+ "E3/1b73e4702cb247d6add41137420f2a06__p41": {
+  "verdict": "marginal",
+  "note": "back cover/spine removed but front cover remains"
+ },
+ "E3/471d783a7d0948549465c94cbeb77cd3__p68": {
+  "verdict": "pass",
+  "note": "right front wheel removed - visible in underside view"
+ },
+ "E3/578442967ca04c028df8ca5e6c2d0c0f__p39": {
+  "verdict": "fail",
+  "note": "cap still present - removal invisible"
+ },
+ "E3/7f5fd59206dc4a009a483d216fee4adc__p354": {
+  "verdict": "fail",
+  "note": "head still present; named part mismatch"
+ },
+ "E3/9a2209083ac147e990f9f6d36d78b480__p64": {
+  "verdict": "pass",
+  "note": "right antenna removed"
+ },
+ "E3/9dd1226e3e1f447f9340bf87900ec89e__p330": {
+  "verdict": "marginal",
+  "note": "claimed foot removal ambiguous in views"
+ },
+ "E3/b415d23b0e4a4f92b4b1e2f29e748a6e__p1": {
+  "verdict": "fail",
+  "note": "ring looks identical - removed part invisible"
+ },
+ "E3/dc2c867f9b7e46028f3f827160bcb01c__p16": {
+  "verdict": "pass",
+  "note": "mushroom cap removed - dramatic exact pair"
+ },
+ "E4/03098bdc35cb__p193_to_4a246570p353": {
+  "verdict": "pass",
+  "note": "afro head replaced by donor part fitted to bbox"
+ },
+ "E4/11dc7945d741__p219_to_03098bdcp193": {
+  "verdict": "marginal",
+  "note": "head swap visible but small"
+ },
+ "E4/318584125d20__p330_to_ef713593p0": {
+  "verdict": "marginal",
+  "note": "flange/housing swap subtle"
+ },
+ "E4/4a246570b444__p353_to_6a14661dp4": {
+  "verdict": "marginal",
+  "note": "small button swap; hard to see"
+ },
+ "E4/802b1094c30d__p271_to_49734024p296": {
+  "verdict": "marginal",
+  "note": "arm/leg swap tiny at this scale"
+ },
+ "E4/ae2a3af19add__p43_to_31858412p267": {
+  "verdict": "pass",
+  "note": "hammer head -> valve stem, clean swap"
+ },
+ "E4/af8aca5512c5__p36_to_3c4d3c67p31": {
+  "verdict": "marginal",
+  "note": "panel swap visible but semantics odd"
+ },
+ "E4/cc9db73fb636__p131_to_af8aca55p116": {
+  "verdict": "pass",
+  "note": "shin guard -> tiny car body; mechanically exact"
+ },
+ "E6/06f83e9f93964336961a32a86991b764__p99_translate": {
+  "verdict": "pass",
+  "note": "belt visibly shifted sideways"
+ },
+ "E6/081371cc821749e3b190dbe035a4a480__p1_rotate": {
+  "verdict": "marginal",
+  "note": "rotation applied; part name (sail) wrong for a candy cane"
+ },
+ "E6/1b73e4702cb247d6add41137420f2a06__p41_translate": {
+  "verdict": "pass",
+  "note": "book cover slid sideways, pages revealed"
+ },
+ "E6/471d783a7d0948549465c94cbeb77cd3__p68_rotate": {
+  "verdict": "fail",
+  "note": "taillight rotation invisible; car body renders black (metallic lighting)"
+ },
+ "E6/578442967ca04c028df8ca5e6c2d0c0f__p39_scale": {
+  "verdict": "pass",
+  "note": "label enlarged 1.5x"
+ },
+ "E6/7f5fd59206dc4a009a483d216fee4adc__p354_rotate": {
+  "verdict": "fail",
+  "note": "head rotation not visible - part id mismatch on this asset"
+ },
+ "E6/9a2209083ac147e990f9f6d36d78b480__p64_translate": {
+  "verdict": "marginal",
+  "note": "leg shift visible but slight tearing"
+ },
+ "E6/9dd1226e3e1f447f9340bf87900ec89e__p330_scale": {
+  "verdict": "marginal",
+  "note": "foot scale subtle"
+ },
+ "E6/b415d23b0e4a4f92b4b1e2f29e748a6e__p1_scale": {
+  "verdict": "pass",
+  "note": "ring head widened"
+ },
+ "E6/dc2c867f9b7e46028f3f827160bcb01c__p16_scale": {
+  "verdict": "pass",
+  "note": "mushroom canopy clearly enlarged"
+ },
+ "E7/06f83e9f93964336961a32a86991b764__p99_duplicate": {
+  "verdict": "pass",
+  "note": "second belt band visible"
+ },
+ "E7/081371cc821749e3b190dbe035a4a480__p1_mirror": {
+  "verdict": "marginal",
+  "note": "mirror copy visible; part name (propeller) wrong"
+ },
+ "E7/471d783a7d0948549465c94cbeb77cd3__p68_mirror": {
+  "verdict": "marginal",
+  "note": "extra wheel hard to spot; body renders dark in one view"
+ },
+ "E7/578442967ca04c028df8ca5e6c2d0c0f__p39_duplicate": {
+  "verdict": "marginal",
+  "note": "duplicated cap offset small"
+ },
+ "E7/7f5fd59206dc4a009a483d216fee4adc__p354_duplicate": {
+  "verdict": "fail",
+  "note": "no visible second part - part id mismatch on this asset"
+ },
+ "E7/9a2209083ac147e990f9f6d36d78b480__p64_mirror": {
+  "verdict": "marginal",
+  "note": "mirrored antenna thin/hard to see"
+ },
+ "E7/b415d23b0e4a4f92b4b1e2f29e748a6e__p1_duplicate": {
+  "verdict": "pass",
+  "note": "duplicated gem band visible on top"
+ },
+ "E7/dc2c867f9b7e46028f3f827160bcb01c__p16_duplicate": {
+  "verdict": "pass",
+  "note": "two mushroom canopies side by side"
+ },
+ "E8/06f83e9f9396__b415d23b0e4a_p5": {
+  "verdict": "pass",
+  "note": "blue donor part attached at waist - clear cross-asset add"
+ },
+ "E8/1b73e4702cb2__9dd1226e3e1f_p315": {
+  "verdict": "marginal",
+  "note": "small boot floats at book corner"
+ },
+ "E8/448ec59eeeb6__ee7668fd3b00_p80": {
+  "verdict": "marginal",
+  "note": "white donor part at hand; low contrast"
+ },
+ "E8/471d783a7d09__9a2209083ac1_p217": {
+  "verdict": "pass",
+  "note": "bee abdomen attached to car - clearly visible"
+ },
+ "E8/532bfb4d5abf__cf73e3045284_p5": {
+  "verdict": "marginal",
+  "note": "lid floats beside tent rather than on it"
+ },
+ "E8/578442967ca0__081371cc8217_p175": {
+  "verdict": "marginal",
+  "note": "small hook at bottle neck; name wrong"
+ },
+ "E8/b8a68678fd45__318584125d20_p267": {
+  "verdict": "pass",
+  "note": "valve assembly attached to boiler side"
+ },
+ "E8/dc2c867f9b7e__7f5fd59206dc_p354": {
+  "verdict": "marginal",
+  "note": "donor part at cap edge, low salience"
+ },
+ "E9/06f83e9f93964336961a32a86991b764__bulge": {
+  "verdict": "pass",
+  "note": "torso bulge clearly visible"
+ },
+ "E9/471d783a7d0948549465c94cbeb77cd3__taper": {
+  "verdict": "pass",
+  "note": "car tapered towards top"
+ },
+ "E9/7f5fd59206dc4a009a483d216fee4adc__taper": {
+  "verdict": "pass",
+  "note": "figure narrows towards top"
+ },
+ "E9/9a2209083ac147e990f9f6d36d78b480__bulge": {
+  "verdict": "pass",
+  "note": "abdomen bulged"
+ },
+ "E9/b415d23b0e4a4f92b4b1e2f29e748a6e__twist": {
+  "verdict": "marginal",
+  "note": "twist subtle on ring"
+ },
+ "E9/bb24ab1bdc2f4a1f8485721f9c32bf67__taper": {
+  "verdict": "pass",
+  "note": "berry tapered; minor surface flap artifact"
+ },
+ "E9/d8e59c77609e4e5c8fd527b5a52e55bc__twist": {
+  "verdict": "marginal",
+  "note": "twist applied but tearing artifacts on multi-piece wig"
+ },
+ "E9/dc2c867f9b7e46028f3f827160bcb01c__twist": {
+  "verdict": "marginal",
+  "note": "cap sheared with torn edge on scan asset"
+ },
+ "E1a/0634f6c6aea34e52bf4a32e4dc336b04": {
+  "verdict": "pass",
+  "note": "racecar -> brushed steel, geometry frozen"
+ },
+ "E1a/09f6928f1b8741efabb5fc56a5d7d549": {
+  "verdict": "pass",
+  "note": "rainbow graffiti wraps truck consistently"
+ },
+ "E1a/0d358271921543dcbcb9a6824c71c22c": {
+  "verdict": "pass",
+  "note": "frog+base glossy blue ceramic (v1 view bug fixed)"
+ },
+ "E1a/10bddf14d6814f679751d10f3ab832e0": {
+  "verdict": "pass",
+  "note": "full matte black carbon look"
+ },
+ "E1a/23eec4fa593041358756735e26aa4cdf": {
+  "verdict": "pass",
+  "note": "translucent green jade, spikes preserved"
+ },
+ "E1a/330915a90762496db5ccd2f6344f4abe": {
+  "verdict": "pass",
+  "note": "brushed steel structure, mirror-like"
+ },
+ "E1a/42025fba95764e10a3fe2a345ab220d8": {
+  "verdict": "pass",
+  "note": "rich dark walnut shelf"
+ },
+ "E1a/448ec59eeeb64ec3b2f682f52849a6d3": {
+  "verdict": "pass",
+  "note": "carbon-black statue"
+ },
+ "E1a/4942146685fb4e3f9b1b3342436fa019": {
+  "verdict": "pass",
+  "note": "vibrant rainbow alien"
+ },
+ "E1a/49734024ff1f4d989305d087383af1b2": {
+  "verdict": "pass",
+  "note": "polished gold bear"
+ },
+ "E1a/4b61e684ddb947cda2aca3f0d582248a": {
+  "verdict": "pass",
+  "note": "rusty iron head (rust granularity slightly smoothed)"
+ },
+ "E1a/5fd7aea1bb554878a6613b0541ae7387": {
+  "verdict": "pass",
+  "note": "carbon-fiber weave preserved on bowl"
+ },
+ "E1a/6323e46a47c04808838d36734bac0459": {
+  "verdict": "pass",
+  "note": "rainbow graffiti rock"
+ },
+ "E1a/65b20d2ef75d4f51a6eda6f81f3bc59f": {
+  "verdict": "pass",
+  "note": "mech fully red leather"
+ },
+ "E1a/6a14661d40ce4be79c0854b89eb09c99": {
+  "verdict": "pass",
+  "note": "wooden skull with grain"
+ },
+ "E1a/71f98eec7c7245b7bd9e7c5aca13b4d7": {
+  "verdict": "pass",
+  "note": "glossy blue ceramic donut"
+ },
+ "E1a/7a8f2627698441c9ad89555837279bd6": {
+  "verdict": "pass",
+  "note": "gold/copper monkey"
+ },
+ "E1a/9004560d14174ee383298e229eb4ddf7": {
+  "verdict": "pass",
+  "note": "rusty dragonfly"
+ },
+ "E1a/942135a5b06d40ffbbc45f54412a75da": {
+  "verdict": "pass",
+  "note": "white marble cannon scene"
+ },
+ "E1a/a01ba464fc2f463a9aaa6ecfbefb58be": {
+  "verdict": "pass",
+  "note": "green jade figure"
+ },
+ "E1a/a78d584281ee4ce392008d722227843b": {
+  "verdict": "pass",
+  "note": "blue ceramic spoons"
+ },
+ "E1a/ad4049a30ff3480486e010a8763a8c40": {
+  "verdict": "marginal",
+  "note": "gold drifted to orange; metallic look weak"
+ },
+ "E1a/b8a68678fd4540d48b386fa671ec29f8": {
+  "verdict": "pass",
+  "note": "brushed steel boiler"
+ },
+ "E1a/bc9f2e6195e443ec90f7eab9fad32c7f": {
+  "verdict": "pass",
+  "note": "rusty iron lock"
+ },
+ "E1a/c1eac050ab1a4b89bcdd3a2fcd901d91": {
+  "verdict": "pass",
+  "note": "marble kiosk, floor kept"
+ },
+ "E1a/dc2c867f9b7e46028f3f827160bcb01c": {
+  "verdict": "pass",
+  "note": "walnut mushroom"
+ },
+ "E1a/e01cef499dbe4d57979dbf623629825d": {
+  "verdict": "pass",
+  "note": "green jade mech dragon"
+ },
+ "E1a/ee2daff40a604c4eb4a22e5765686764": {
+  "verdict": "pass",
+  "note": "marble bust with veins"
+ },
+ "E1a/ee7668fd3b0042618aaed9653f7867a7": {
+  "verdict": "pass",
+  "note": "red leather bust"
+ },
+ "E1a/f5866c6f9aba4bf799ef19275a3788da": {
+  "verdict": "pass",
+  "note": "red submarine"
+ },
+ "E1c/0206a1a2361d4c00a2b92ec19aa8e247": {
+  "verdict": "marginal",
+  "note": "body tinted overall instead of trim-only - fallback route limitation"
+ },
+ "E1c/1507040b470a40c2b38fb93f0f6c5bb6": {
+  "verdict": "fail",
+  "note": "glass turned dark opaque; transparency lost in re-sample"
+ },
+ "E1c/16f4953f226441a9aa7d5918966af3d5": {
+  "verdict": "marginal",
+  "note": "pink did not survive into 3D; floors went tan"
+ },
+ "E1c/2ef12f2c94c246eca1b260d22c2a9c56": {
+  "verdict": "marginal",
+  "note": "teal hands transferred, orange hair lost"
+ },
+ "E1c/30e98fb7d59c4acaa0824202fc887143": {
+  "verdict": "marginal",
+  "note": "recolored blue; \"swap\" semantics loose"
+ },
+ "E1c/3ef8f9fc586142feb7d031e4a6b240be": {
+  "verdict": "pass",
+  "note": "label/pattern preserved, base turned deep red - best E1c case"
+ },
+ "E1c/4df6f6e499c94440838f95fd10fcd1b4": {
+  "verdict": "marginal",
+  "note": "more rust overall; left-side locality dubious"
+ },
+ "E1c/521ed677a92f42329595c5a0249b752a": {
+  "verdict": "marginal",
+  "note": "mossy tint present but figure darkened"
+ },
+ "E1c/8b99a85afada475d9a7867ac4defd2d9": {
+  "verdict": "fail",
+  "note": "motif not preserved; background not navy"
+ },
+ "E1c/e8f18b59adeb4ec2ba4cfdc3a4a3a2bb": {
+  "verdict": "pass",
+  "note": "wings darkened to night palette, layout kept"
+ },
+ "E5/03ddc0110a5d4fea81f33fada42f1201": {
+  "verdict": "pass",
+  "note": "weathered mossy stone gasmask"
+ },
+ "E5/12a6b5f867714744b327f9e25bb1aa39": {
+  "verdict": "pass",
+  "note": "plush coke can"
+ },
+ "E5/12d0af007b5c466887595c83bf65cd11": {
+  "verdict": "pass",
+  "note": "low-poly flat-color dino"
+ },
+ "E5/554648d951a648e5b7a7641932ef5e1e": {
+  "verdict": "pass",
+  "note": "carved walnut ring with cat motif"
+ },
+ "E5/56e32d699e8544129b874854fad4b6e0": {
+  "verdict": "pass",
+  "note": "steampunk brass minigun with gears"
+ },
+ "E5/77d723a141b142f1b25d6b763340ebc9": {
+  "verdict": "pass",
+  "note": "LEGO-brick truck with studs"
+ },
+ "E5/e3d247e0ce594854a1a18a541fa17717": {
+  "verdict": "pass",
+  "note": "claymation bell arch"
+ },
+ "E5/e888c02413ae499b918e6d14e8914eb2": {
+  "verdict": "pass",
+  "note": "frosted ice staircase"
+ }
+}
