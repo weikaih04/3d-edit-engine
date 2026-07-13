@@ -86,3 +86,4 @@ Environments: `trellis2` (torch 2.5.1+cu121 + TRELLIS.2 extensions + diffusers>=
 - `docs/RESULTS.md` — per-round quality progression and what fixed what
 - `docs/GOTCHAS.md` — every trap we hit (coordinate frames, HF offline, vLLM spawn, …)
 - `docs/THIRD_PARTY_PATCHES.md` — required edits to TRELLIS.2 / Hunyuan3D-Part checkouts
+- `docs/REFERENCES.md` — frozen models + the editing papers that shaped the task matrix (Nano3D/VoxHammer/…)
