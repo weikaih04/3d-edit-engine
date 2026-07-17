@@ -68,6 +68,12 @@ for d in sorted(glob.glob(f"{EDIT_DIR}/*/")):
         nm = trimesh.load(nglb, force='mesh')
         em = trimesh.load(eglb, force='mesh')
         assert len(nm.faces) == len(em.faces)
+        if os.environ.get("E1B_OUTSIDE") == "rebake":
+            # deterministic transfer of the ORIGINAL texture for the unedited region
+            # (generative null re-synthesis breaks text/logo alignment)
+            from rebake_texture import rebake
+            nm.visual.material.baseColorTexture = rebake(
+                pilot[sha]['glb'], nm, texture_size=nm.visual.material.baseColorTexture.size[0])
         _, idx = tree.query(nm.triangles_center, k=1)
         hot_faces = fids[idx] == pid          # TRELLIS faces belonging to the part
         if hot_faces.mean() < 0.01:
