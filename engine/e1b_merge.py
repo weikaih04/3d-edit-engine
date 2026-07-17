@@ -49,13 +49,16 @@ for d in sorted(glob.glob(f"{EDIT_DIR}/*/")):
         continue
     try:
         fids = np.load(pdir + 'face_ids.npy')
-        if sha in PART_MAP:
-            pid = int(PART_MAP[sha]['pid'])
+        if sha in PART_MAP and 'pids' in PART_MAP[sha]:
+            pid_set = [int(p) for p in PART_MAP[sha]['pids']]   # semantic unit
+            pid = pid_set[0]
+        elif sha in PART_MAP:
+            pid = int(PART_MAP[sha]['pid']); pid_set = [pid]
         else:
             parts = part_stats(fids)
             if not parts:
                 continue
-            pid = int(parts[rng.randint(len(parts))][0])
+            pid = int(parts[rng.randint(len(parts))][0]); pid_set = [pid]
 
         orig = trimesh.load(pilot[sha]['glb'], force='mesh')
         # TRELLIS outputs live in the normalized [-0.5,0.5] cube; bring the
@@ -75,7 +78,7 @@ for d in sorted(glob.glob(f"{EDIT_DIR}/*/")):
             nm.visual.material.baseColorTexture = rebake(
                 pilot[sha]['glb'], nm, texture_size=nm.visual.material.baseColorTexture.size[0])
         _, idx = tree.query(nm.triangles_center, k=1)
-        hot_faces = fids[idx] == pid          # TRELLIS faces belonging to the part
+        hot_faces = np.isin(fids[idx], pid_set)   # TRELLIS faces of the semantic unit
         if hot_faces.mean() < 0.01:
             continue
 

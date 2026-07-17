@@ -62,3 +62,24 @@
   scripts at submit time but python files at RUN time (mid-flight edits do land).
 - `hf download` replaced `huggingface-cli download`; unauthenticated downloads drop mid-way —
   wrap in retry loops; watch disk (ENOSPC on 54GB QIE) and redirect HF_HOME to the big volume.
+
+## Texture fidelity (text/logo alignment)
+- Generative texture re-synthesis (TRELLIS null cond) CANNOT reproduce text/logos —
+  a 512^3 voxel color field has no room for glyph-scale high frequency; numbers come
+  out as smeared blobs, livery stripes drift. So: **the unedited region of any local
+  edit must NOT be re-synthesized.** Use `rebake_texture.py` — deterministic per-texel
+  color transfer from the ORIGINAL asset to the TRELLIS-topology atlas (4M-point KDTree
+  in the shared normalized frame, no model). E1a_rev's "after" = the original glb itself.
+- Rebake caveat: thin double walls can grab the wrong side's color (nearest neighbor
+  crosses the shell). Fix = filter candidates by normal agreement (dot>0) — TODO for prod.
+- E1a GLOBAL material still shows garbled text: the whole surface is legitimately edited,
+  so rebake-copy would undo the edit. Right fix = DETAIL TRANSFER (generative material +
+  original high-freq structure layer via rebake), or OCR-tag text-heavy assets and phrase
+  the instruction to "repaint over all markings" so vanishing text is intended, not a bug.
+
+## Local material must use SEMANTIC units too
+- E1b picking a single P3-SAM part paints only one shell of a multi-shell semantic part
+  ("head" gold on the outer skull, eye-socket interior still original). Use the VLM
+  semantic group as the mask (e1b_v3_prep.py -> e1b_merge.py pid_set), and the group NAME
+  as the instruction ("change only the <group> to X"): paint-range, instruction wording,
+  and 3D mask all align by construction. E1b 2/11 -> 8-9/11.
