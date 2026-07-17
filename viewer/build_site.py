@@ -33,15 +33,15 @@ TASK_INFO = {
     'E1a': ('Global material change', 'freeze geometry + re-sample TRELLIS.2 texture flow on the QIE-edited view'),
     'E1b': ('Part-local material change', 'v2: TARGETED QIE edit ("change only the <part>") + UV-space texture merge by P3-SAM mask — blind-judge 9/11'),
     'E1c': ('Pattern-preserving appearance — DEFERRED', 'fallback route hit its ceiling (2/10); real solution is FlowEdit on the texture flow, scheduled phase-2; excluded from pilot gate metrics'),
-    'E2':  ('Part addition', 'r2 pairs = exact inverse of E3 removal; X-Part bbox re-synthesis validated for production'),
-    'E3':  ('Part removal', 'procedural exact pair; r2 = area-share + z-buffer-visibility part selection (blind-judge 9/10)'),
+    'E2':  ('Part addition', 'r3: exact inverse of SEMANTIC-unit E3 removal (VLM-named groups) — blind-judge 11/12'),
+    'E3':  ('Part removal', 'r3: removes a VLM-named semantic unit (co-move group) — blind-judge 12/12'),
     'E4':  ('Part replacement', 'full chain: procedural swap → X-Part in-context re-synthesis → TRELLIS.2 re-texture'),
     'E5':  ('Global stylization', 'QIE-edited view → full TRELLIS.2 image-to-3D regeneration'),
-    'E6':  ('Part rigid transform', 'procedural affine on part vertices (scale / rotate / translate)'),
-    'E7':  ('Duplicate / mirror part', 'procedural copy or mirror; grids include look-at-part closeup panels'),
+    'E6':  ('Part rigid transform', 'r3: affine on semantic units, instructions from VLM group names'),
+    'E7':  ('Duplicate / mirror part', 'r3: copy/mirror whole semantic units'),
     'E8':  ('Cross-asset composition', 'procedural donor paste keeping donor texture (X-Part chain rejected: re-texture broke edit locality)'),
     'E9':  ('Mesh deformation', 'v2.1: clean assets only, stronger twist/taper/bulge + bend'),
-    'E10': ('Multi-turn chains', 'v2: composed ONLY from gate-passed single edits (no new generation)'),
+    'E10': ('Multi-turn chains', 'r3: two-step chains over distinct semantic units'),
     'E1a_rev': ('Reverse material pairs', 'free inverse of E1a: edited asset + caption-driven restore-original instruction'),
 }
 
@@ -65,17 +65,18 @@ def add_pair(task, name, instr, glbs, grid, extra_img=None):
     pairs.append({"task": task, "name": name, "instr": instr,
                   "glbs": glbs, "grid": grid, "extra": extra_img})
 
-# --- out_pairs (round 1) + out_pairs2 (round 2: fixed part selection + reverse pairs)
-auto_geo, auto_judge = {}, {}
-if os.path.exists(f"{B}/out_pairs2/auto_geo.json"):
-    auto_geo = json.load(open(f"{B}/out_pairs2/auto_geo.json"))
-if os.path.exists(f"{B}/judge_round2_results.json"):
-    auto_judge = json.load(open(f"{B}/judge_round2_results.json"))
+# --- out_pairs (r1) + out_pairs2 (r2) + out_pairs3 (r3: SEMANTIC edit units)
+GEO_SRC = {"r2": f"{B}/out_pairs2/auto_geo.json", "r3": f"{B}/out_pairs3/auto_geo.json"}
+JUDGE_SRC = {"r2": f"{B}/judge_round2_results.json", "r3": f"{B}/judge_v3_results.json"}
+auto_geo_by, auto_judge_by = {}, {}
+for rnd in ("r2", "r3"):
+    auto_geo_by[rnd] = json.load(open(GEO_SRC[rnd])) if os.path.exists(GEO_SRC[rnd]) else {}
+    auto_judge_by[rnd] = json.load(open(JUDGE_SRC[rnd])) if os.path.exists(JUDGE_SRC[rnd]) else {}
 
-# r1 pairs superseded by fixed round-2 versions are NOT shown (buggy part
-# selection / mask transfer — kept on disk for provenance only)
+# earlier rounds superseded by fixed later versions are NOT shown
 SUPERSEDED_R1 = {'E1b', 'E2', 'E3', 'E4', 'E6', 'E7', 'E9', 'E10'}
-for root, rnd in [(f"{B}/out_pairs", "r1"), (f"{B}/out_pairs2", "r2")]:
+SUPERSEDED_R2 = {'E2', 'E3', 'E6', 'E7', 'E10'}      # replaced by r3 semantic units
+for root, rnd in [(f"{B}/out_pairs", "r1"), (f"{B}/out_pairs2", "r2"), (f"{B}/out_pairs3", "r3")]:
     for mp in sorted(glob.glob(f"{root}/*/*/meta.json")):
         d = os.path.dirname(mp)
         task = d.split('/')[-2]
@@ -83,6 +84,8 @@ for root, rnd in [(f"{B}/out_pairs", "r1"), (f"{B}/out_pairs2", "r2")]:
         if task == 'compare':
             continue
         if rnd == 'r1' and task in SUPERSEDED_R1:
+            continue
+        if rnd == 'r2' and task in SUPERSEDED_R2:
             continue
         meta = json.load(open(mp))
         if task == 'E10':
@@ -95,12 +98,12 @@ for root, rnd in [(f"{B}/out_pairs", "r1"), (f"{B}/out_pairs2", "r2")]:
             instr = meta.get('instruction', meta.get('instruction_template', '?'))
             glbs = [f"{d}/before.glb", f"{d}/after.glb"]
         grid = f"{root}/compare/{task}__{name}.jpg"
-        p_name = name if rnd == 'r1' else f"r2_{name}"
+        p_name = name if rnd == 'r1' else f"{rnd}_{name}"
         add_pair(task, p_name, instr, glbs, grid if os.path.exists(grid) else None)
-        if rnd == 'r2':
+        if rnd in ('r2', 'r3'):
             key = f"{task}/{name}"
-            g = auto_geo.get(key, {})
-            j = auto_judge.get(key, {})
+            g = auto_geo_by[rnd].get(key, {})
+            j = auto_judge_by[rnd].get(key, {})
             v = 'pending'
             note_parts = []
             if g:
@@ -111,7 +114,7 @@ for root, rnd in [(f"{B}/out_pairs", "r1"), (f"{B}/out_pairs2", "r2")]:
                 note_parts.append(f"blind-judge observed: {j.get('observed','')[:140]}")
             if g and not g.get('geo_pass'):
                 v = 'fail'
-            pairs[-1]['auto'] = {"verdict": v, "note": "auto-gate (round2) | " + " | ".join(note_parts)}
+            pairs[-1]['auto'] = {"verdict": v, "note": "auto-gate | " + " | ".join(note_parts)}
 
 # --- pilot-output tasks (E1a / E1c / E5)
 def pilot_task(task, edit_dir, views_dir, cmp_dir):

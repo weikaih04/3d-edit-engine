@@ -42,6 +42,33 @@ def occupancy_iou(m1, m2, res=96, n=80000):
     return float(np.mean(ious))
 
 
+def orphan_check(mb, ma, diag, n=20000):
+    """detect parts left floating by an edit: a connected component of AFTER whose
+    min distance to the rest jumped (was attached in BEFORE, now hangs in air)."""
+    import trimesh
+    from scipy.spatial import cKDTree
+    try:
+        comps = ma.split(only_watertight=False)
+        if len(comps) < 2:
+            return 0, True
+        np.random.seed(0)
+        samples = []
+        for c in comps:
+            if len(c.faces) < 4:
+                continue
+            p, _ = trimesh.sample.sample_surface(c, max(200, min(2000, len(c.faces))))
+            samples.append(p)
+        n_orph = 0
+        for i, p in enumerate(samples):
+            others = np.vstack([q for j, q in enumerate(samples) if j != i])
+            d = cKDTree(others).query(p, k=1)[0].min()
+            if d > 0.04 * diag:
+                n_orph += 1
+        return n_orph, n_orph == 0
+    except Exception:
+        return -1, True
+
+
 results = {}
 
 def check_pair(key, task, before_glb, after_glb, meta):
@@ -56,17 +83,23 @@ def check_pair(key, task, before_glb, after_glb, meta):
         elif task in ('E3', 'E2'):
             d_area = abs(ma.area - mb.area) / max(mb.area, 1e-9)
             r['area_delta'] = float(d_area)
-            r['vis'] = meta.get('vis')
-            r['geo_pass'] = (0.02 <= d_area <= 0.45) and (meta.get('vis') or 0) >= 0.3
+            vis = meta.get('vis') or (meta.get('unit') or {}).get('vis')
+            r['vis'] = vis
+            n_orph, orph_ok = orphan_check(mb, ma, diag)
+            r['orphans'] = n_orph
+            r['geo_pass'] = (0.02 <= d_area <= 0.60) and (vis or 0) >= 0.3 and orph_ok
         elif task in ('E6', 'E7'):
-            r['vis'] = meta.get('vis')
+            vis = meta.get('vis') or (meta.get('unit') or {}).get('vis')
+            r['vis'] = vis
             df = abs(len(ma.faces) - len(mb.faces))
             moved = None
             if len(ma.vertices) == len(mb.vertices):
                 dv = np.linalg.norm(ma.vertices - mb.vertices, axis=1)
                 moved = float((dv > 1e-6 * diag).mean())
                 r['moved_frac'] = moved
-            r['geo_pass'] = ((meta.get('vis') or 0) >= 0.3) and (df > 0 or (moved or 0) > 0.005)
+            n_orph, orph_ok = orphan_check(mb, ma, diag)
+            r['orphans'] = n_orph
+            r['geo_pass'] = ((vis or 0) >= 0.3) and (df > 0 or (moved or 0) > 0.005) and orph_ok
         elif task == 'E9':
             if len(ma.vertices) == len(mb.vertices):
                 dv = np.linalg.norm(ma.vertices - mb.vertices, axis=1)

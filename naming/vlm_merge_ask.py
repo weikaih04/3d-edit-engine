@@ -36,7 +36,16 @@ PROMPT_TMPL = (
 
 
 def main():
-    shas = sys.argv[1:]
+    if sys.argv[1:] == ["--all"]:
+        import glob
+        shas = [p.split('/')[-2] for p in sorted(glob.glob(f"{B}/vlm_merge/*/panel.jpg"))
+                if not os.path.exists(os.path.dirname(p) + "/groups.json")]
+        print(f"--all: {len(shas)} assets pending", flush=True)
+    else:
+        shas = sys.argv[1:]
+    if not shas:
+        print("VLM_MERGE_ASK_DONE (nothing to do)")
+        return
     llm = LLM(model=MODEL, max_model_len=8192, gpu_memory_utilization=0.9,
               limit_mm_per_prompt={"image": 1}, dtype="bfloat16")
     sp = SamplingParams(temperature=0.0, max_tokens=512,
