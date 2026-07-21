@@ -83,3 +83,16 @@
   semantic group as the mask (e1b_v3_prep.py -> e1b_merge.py pid_set), and the group NAME
   as the instruction ("change only the <group> to X"): paint-range, instruction wording,
   and 3D mask all align by construction. E1b 2/11 -> 8-9/11.
+
+## Part removal: interior exposure ("looks like a hole")
+- Removing a part rarely creates a TRUE topological hole (assets are mostly separate
+  interpenetrating shells; measured new-open-boundary-edges at the cut ~0-26, minor). BUT
+  it often EXPOSES interior geometry (inner walls, internal structure/cables) that reads as
+  a hole/gore — the real defect for training data. ~17% of E3 severe, ~50% mild in pilot.
+- Detect: fraction of after-faces near the removed region whose NORMAL points toward the
+  removed part's former centroid (inner wall now facing out). `interior_exposure > 0.35`
+  in geometry_checks._clean_cut → geo fail. Gate, don't fill (capping the cut is future work
+  if E3 volume runs short).
+- Counting total open-boundary-edge change is WRONG for hole detection: removing an open
+  shell decreases the total even while creating a new cut loop. Must compare after-boundary
+  vs before-boundary POSITIONS (new edges not near old ones).

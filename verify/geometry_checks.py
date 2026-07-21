@@ -13,9 +13,59 @@ import numpy as np
 import trimesh
 
 B = "/fsx/hyperpod/weikaih_edit"
+sys.path.insert(0, B)
 ROOT = sys.argv[1] if len(sys.argv) > 1 else f"{B}/out_pairs2"
 ALSO_PILOT = len(sys.argv) > 2 and sys.argv[2] == '1'
 pilot = {a['sha']: a for a in json.load(open(f'{B}/pilot200.json'))}
+
+INTERIOR_EXPOSURE_MAX = 0.35   # >this at a cut = removal exposed inner walls -> reject
+
+
+def _clean_cut(before_glb, after_glb, sha, pids):
+    """After a part removal, quantify (a) NEW open-boundary edges at the cut = true
+    hole, (b) interior exposure = fraction of after-faces near the removed region
+    whose normal points TOWARD the removed part's former centroid (inner wall now
+    visible through the cut). Returns (new_open_edges, interior_exposure)."""
+    from scipy.spatial import cKDTree
+    try:
+        from edit_parts_lib import load_dump
+    except Exception:
+        return None, None
+    b = trimesh.load(before_glb, force='mesh')
+    a = trimesh.load(after_glb, force='mesh')
+
+    def bnd_mids(m):
+        if not len(m.faces):
+            return np.zeros((0, 3))
+        e = m.edges_sorted
+        uq, cnt = np.unique(e, axis=0, return_counts=True)
+        be = uq[cnt == 1]
+        return m.vertices[be].mean(axis=1)
+    pb, pa = bnd_mids(b), bnd_mids(a)
+    diag = float(np.linalg.norm(np.ptp(b.vertices, axis=0)))
+    if len(pa) and len(pb):
+        d2, _ = cKDTree(pb).query(pa, k=1)
+        new_open = int((d2 > 0.01 * diag).sum())
+    else:
+        new_open = int(len(pa))
+
+    exposure = None
+    if pids:
+        meshes, fids = load_dump(sha)
+        if meshes is not None:
+            merged = trimesh.util.concatenate([m.copy() for m in meshes])
+            rc = merged.triangles_center[np.isin(fids, [int(p) for p in pids])]
+            if len(rc) >= 10:
+                part_c = rc.mean(0)
+                ac, an = a.triangles_center, a.face_normals
+                near = np.linalg.norm(ac - part_c, axis=1) < 0.6 * np.linalg.norm(np.ptp(rc, 0))
+                if near.sum() >= 10:
+                    to = part_c - ac[near]
+                    to /= np.linalg.norm(to, axis=1, keepdims=True) + 1e-9
+                    exposure = float(((an[near] * to).sum(1) > 0.3).mean())
+                else:
+                    exposure = 0.0
+    return new_open, exposure
 
 
 def occupancy_iou(m1, m2, res=96, n=80000):
@@ -87,7 +137,18 @@ def check_pair(key, task, before_glb, after_glb, meta):
             r['vis'] = vis
             n_orph, orph_ok = orphan_check(mb, ma, diag)
             r['orphans'] = n_orph
-            r['geo_pass'] = (0.02 <= d_area <= 0.60) and (vis or 0) >= 0.3 and orph_ok
+            # clean-cut: reject removals that expose inner walls (only for E3;
+            # E2 = inverse of E3, before/after roles swapped so cut is on 'before')
+            cut_ok = True
+            if task == 'E3':
+                sha = meta.get('sha')
+                pids = (meta.get('unit') or {}).get('pids') or meta.get('pids')
+                new_open, expo = _clean_cut(before_glb, after_glb, sha, pids)
+                r['cut_new_open_edges'] = new_open
+                r['interior_exposure'] = expo
+                if expo is not None and expo > INTERIOR_EXPOSURE_MAX:
+                    cut_ok = False
+            r['geo_pass'] = (0.02 <= d_area <= 0.60) and (vis or 0) >= 0.3 and orph_ok and cut_ok
         elif task in ('E6', 'E7'):
             vis = meta.get('vis') or (meta.get('unit') or {}).get('vis')
             r['vis'] = vis
